@@ -1,0 +1,17 @@
+{
+	"tomato": "Juste des tomates svp",
+	"cheese_wedge": "Seulement du bon fromage qui pue", 
+	"mushroom": "Des cornichons, rien de plus, rien de moins",
+	"leafy_green": "Uniquement de la salade sur ma pizza. C'est une pizza pour ma tortue", 
+	"tomato, cheese_wedge": "Je voudrais une pizza classique s'il vous plait",
+	"tomato, muchroom": "Vous pourriez me mettre des cornichons sur ma pizza sans fromage ?", 
+	"tomato, leafy_green": "Tomates salade pour moi",
+	"cheese_wedge, muchroom": "Je n'ai pas la tomate. Par contre j'adore les cornichons et le beaufort !",
+	"cheese_wedge, leafy_green": "Juste de la salade et du fromage pour moi chef !",
+	"muchroom, leafy_green": "J'adore tout ce qui est vert !",
+	"tomato, cheese_wedge, muchroom": "J'voudrais bien des cornichons sur ma pizza", 
+	"tomato, cheese_wedge, leafy_green": "Mon jardin est rempli de salade, mais pas que !", 
+	"tomato, muchroom, leafy_green": "Le fromage est présent dans mes pires cauchemards ! Mais il n'y a que le fromage dans mes cauchemards, vous pouvez mettre le reste.",
+	"cheese_wedge, muchroom, leafy_green": "fromage, cornichons, laitue.",
+	"tomato, cheese_wedge, muchroom, leafy_green": "La complète pour moi s'il te plait !"
+}

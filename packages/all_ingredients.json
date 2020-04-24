@@ -1,0 +1,13 @@
+{
+	"tomato": 0.5, 
+	"leafy_green": 0.5, 
+	"cheese_wedge": 0.5, 
+	"mushroom": 0.5,
+	"bacon": 1, 
+	"eggplant": 1, 
+	"potato": 0.75, 
+	"carrot": 0.6, 
+	"hot_pepper": 1, 
+	"poultry_leg": 1, 
+	"cut_of_meat": 0.8
+}
