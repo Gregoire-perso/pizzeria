@@ -18,7 +18,6 @@ class Day:
 		self.const_scr = const_scr;
 		self.income_of_the_day = 0;
 		self.outgoings_expense_of_the_day = 0;
-		self.start_day();
 
 	def start_day(self):
 		for i in range(self.number_of_client):

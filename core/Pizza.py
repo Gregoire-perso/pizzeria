@@ -53,10 +53,8 @@ class Pizza:
 		self.x = 18;
 		self.cooked = False;
 		self.outgoings_expense = 0;
-		
 
-		self.suivi = ["debut client"];
-		
+	#======================================================================
 	
 	def do_pizza(self):
 		#Display of the pizza
@@ -154,11 +152,12 @@ class Pizza:
 				self.cook();
 
 			elif(key == 't'):
-				self.display_pizza(1);
-				try:
-					self.ingredients_on_pizza["tomato"] += 1;
-				except KeyError:
-					self.ingredients_on_pizza["tomato"] = 1;
+				if(not overdraft(self.restaurant.connection_key_ingredient['t'])):
+					self.display_pizza(1);
+					try:
+						self.ingredients_on_pizza["tomato"] += 1;
+					except KeyError:
+						self.ingredients_on_pizza["tomato"] = 1;
 
 			#Put an ingredient
 			elif(key in self.restaurant.connection_key_ingredient.keys()):
@@ -168,9 +167,6 @@ class Pizza:
 			self.scr.move(self.y, self.x);
 			key = self.scr.getkey().lower();
 	
-		with open("test", "w") as f:
-			f.write("\n".join(self.suivi));
-
 		self.client.served();
 
 	#======================================================================

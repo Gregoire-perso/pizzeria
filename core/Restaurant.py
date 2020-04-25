@@ -97,4 +97,25 @@ class Restaurant:
 		constant_scr.addstr(0, 0, "Jour numéro {0}".format(self.days));
 		constant_scr.addstr(1, 0, "{0} : {1}".format(emoji.emojize(":dollar_banknote:"), self.money));
 		constant_scr.refresh();
+	
+	def upgrade_menu(self, main_scr):
+		main_scr.clear();
+
+		main_scr.addstr(2, 2, "Que voulez-vous faire ?");
+		main_scr.addstr(3, 4, "1 : Acheter de nouveaux ingrédients");
+		main_scr.addstr(4, 4, "2 : Améliorer votre four");
+
+		key = main_scr.getkey();
+
+		while (key not in '12'):
+			key = main_scr.getkey();
+
+		return(key);
+
+	
+	def upgrade_ingredient(self, main_scr):
+		pass
+	
+	def upgrade_equipment(self, main_scr):
+		pass
 
