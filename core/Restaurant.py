@@ -48,7 +48,7 @@ class Restaurant:
 		self.surname = surname;
 		self._xp = 1;
 		self._level = 1;
-		self._money = 50;
+		self._money = 500;
 		self.days = 1;
 		self.rent = 10;
 
@@ -95,12 +95,25 @@ class Restaurant:
 	def display_const(self, constant_scr):
 		constant_scr.clear();
 		constant_scr.addstr(0, 0, "Jour numéro {0}".format(self.days));
-		constant_scr.addstr(1, 0, "{0} : {1}".format(emoji.emojize(":dollar_banknote:"), self.money));
+		constant_scr.addstr(1, 0, "{0} : {1}".format(emoji.emojize(":euro_banknote:"), self.money));
 		constant_scr.refresh();
 	
-	def upgrade_menu(self, main_scr):
-		main_scr.clear();
+	def do_price_list(self, ingredients_buying_price_list):
+		price_list = [];
+		for i, j in ingredients_buying_price_list:
+			if (i in self.ingredients.keys()):
+				price_list.append("   Déjà acheté   ");
 
+			else:
+				len_price = len(str(j)) + 1;
+				temp = " " * ((17 - len_price) // 2);
+				temp += str(j) + "€";
+				temp += " " * (17 - len(temp));
+				price_list.append(temp);
+		return (price_list);
+
+	def upgrade_menu(self, main_scr, const_scr):
+		main_scr.clear();
 		main_scr.addstr(2, 2, "Que voulez-vous faire ?");
 		main_scr.addstr(3, 4, "1 : Acheter de nouveaux ingrédients");
 		main_scr.addstr(4, 4, "2 : Améliorer votre four");
@@ -110,12 +123,65 @@ class Restaurant:
 		while (key not in '12'):
 			key = main_scr.getkey();
 
-		return(key);
+		if (key == '1'):
+			self.upgrade_ingredient(main_scr, const_scr);
+		
+		else:
+			self.upgrade_equipment(main_scr, const_scr);
 
 	
-	def upgrade_ingredient(self, main_scr):
-		pass
-	
+	def upgrade_ingredient(self, main_scr, const_scr):
+		main_scr.clear();
+		with open("../packages/ingredients_buying_price.json", "r") as f:
+			ingredients_buying_price = json.load(f);
+
+		with open("../languages/french/connection_emoji_ingredient.json", "r") as f:
+			connection_emoji_ingredient = json.load(f);
+
+		emoji_list = ["        " + emoji.emojize(":"+i+":") + "       " for i in ingredients_buying_price.keys()];
+		
+		ingredient_name_list = [];
+		k = 1;
+		for i in ingredients_buying_price.keys():
+			name = connection_emoji_ingredient[i];
+			temp = " " * ((17 - len(name)) // 2 - 1);
+			temp += str(k) + ": " + name;
+			temp += " " * (17 - len(temp));
+			ingredient_name_list.append(temp);
+			k += 1;
+
+		ingredients_buying_price_list = list(ingredients_buying_price.items());
+		
+		key = 'e';
+		scr_number = 0; #Screen number for the ingredients
+		price_list = self.do_price_list(ingredients_buying_price_list);
+		while (key != 'q'):
+			temp = "{"+str(0+scr_number)+"}|{"+str(1+scr_number)+"}|{"+str(2+scr_number)+"}|{"+str(3+scr_number)+"}";
+			main_scr.addstr(2, 2, "   " + temp.format(*emoji_list) + "   ");
+			main_scr.addstr(3, 2, "<--" + temp.format(*ingredient_name_list) + "-->");
+			main_scr.addstr(4, 2, "   " + temp.format(*price_list) + "   ");
+			main_scr.addstr(5, 2, "Appuyez sur 'q' pour quitter");
+			main_scr.refresh();
+			key = main_scr.getkey().lower();
+
+			if (key == 'key_right'):
+				scr_number = scr_number + 4 if scr_number + 7 < len(emoji_list)-1 else len(emoji_list) - 4;
+
+			elif (key == 'key_left'):
+				scr_number = scr_number - 4 if scr_number - 4 > 0 else 0;
+
+			elif (key == 'q'):
+				break;
+
+			else:
+				with open("../packages/all_ingredients.json", "r") as f:
+					temp = json.load(f);
+		
+				if (self.debit(ingredients_buying_price_list[int(key)-1][1], const_scr)):
+					self.ingredients[ingredients_buying_price_list[int(key)-1][0]] = temp[ingredients_buying_price_list[int(key)-1][0]];
+					price_list = self.do_price_list(ingredients_buying_price_list);
+		
+
 	def upgrade_equipment(self, main_scr):
 		pass
 

@@ -37,7 +37,7 @@ def init(main_screen):
 	curses.init_pair(3, 8, curses.COLOR_BLACK);
 	curses.init_pair(4, 9, curses.COLOR_BLACK);
 	curses.curs_set(0);
-	main_scr = curses.newwin(20, 70, 8, 0); # The main self.main_screen
+	main_scr = curses.newwin(20, 80, 8, 0); # The main self.main_screen
 	command_scr = curses.newwin(3, 60, 4, 0); # The command self.main_screen
 	keys_scr = curses.newwin(20, 40, 8, 40); # self.main_screen that display connection between key and ingredient
 	constant_scr = curses.newwin(3, 60, 0, 0); # self.main_screen that display money, day, etc...
@@ -66,9 +66,9 @@ def end_day_menu(main_scr):
 	
 	main_scr.addstr(3, 2, "Que voulez-vous faire ?");
 	main_scr.addstr(4, 2, "1 : Améliorer votre restaurant (pas dispo)");
-	main_scr.addstr(6, 2, "2 : Ouvrir la pizzeria le lendemain");
-	main_scr.addstr(7, 2, "3 : Sauvegarder votre partie (rien ne se passe, c'est normal)");
-	main_scr.addstr(9, 2, "4 : Quitter (sans sauvegarder)");
+	main_scr.addstr(5, 2, "2 : Ouvrir la pizzeria le lendemain");
+	main_scr.addstr(6, 2, "3 : Sauvegarder votre partie (rien ne se passe, c'est normal)");
+	main_scr.addstr(7, 2, "4 : Quitter (sans sauvegarder)");
 
 	key = '100';
 	while(key not in '1234'):

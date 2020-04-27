@@ -7,7 +7,7 @@
 	"eggplant": 100, 
 	"potato": 150, 
 	"carrot": 200, 
-	"hot_pepper": 200, 
 	"poultry_leg": 200, 
-	"cut_of_meat": 200
+	"cut_of_meat": 200,
+	"hot_pepper": 200 
 }

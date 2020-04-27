@@ -9,7 +9,7 @@ def end_day():
 	choice = master.end_day_menu(main_scr);
 
 	if (choice == '1'):
-		restaurant.upgrade_menu(main_scr);
+		restaurant.upgrade_menu(main_scr, constant_scr);
 		end_day();
 	
 	elif (choice == '2'):

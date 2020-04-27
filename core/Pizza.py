@@ -136,7 +136,7 @@ class Pizza:
 		while(key.lower() != 'q'):
 			#Movements
 			if(key == 'key_right'):
-				self.x += 2;
+				self.x += 2 if self.x <= 37 else 0;
 
 			elif(key == 'key_left'):
 				self.x -= 2 if self.x >= 1 else 0;
@@ -145,14 +145,14 @@ class Pizza:
 				self.y -= 1 if self.y >= 1 else 0;
 
 			elif(key == 'key_down'): 
-				self.y += 1; 
+				self.y += 1 if self.y <= 18 else 0; 
 
 			# Check if player want to cook the pizza
 			elif(key == 'e'):
 				self.cook();
 
 			elif(key == 't'):
-				if(not overdraft(self.restaurant.connection_key_ingredient['t'])):
+				if(not self.overdraft(self.restaurant.connection_key_ingredient['t'])):
 					self.display_pizza(1);
 					try:
 						self.ingredients_on_pizza["tomato"] += 1;
@@ -161,7 +161,6 @@ class Pizza:
 
 			#Put an ingredient
 			elif(key in self.restaurant.connection_key_ingredient.keys()):
-				self.suivi.append("ajout ingredient " + key);
 				self.add_ingredient(self.restaurant.connection_key_ingredient[key]);
 
 			self.scr.move(self.y, self.x);
@@ -173,7 +172,6 @@ class Pizza:
 
 	def add_ingredient(self, which_one):
 		if(self.correct_position() and not self.overdraft(which_one)):		
-			self.suivi.append("affichage ingredient " + which_one);
 			self.scr.addstr(self.y, self.x, emoji.emojize(":"+which_one+":"));
 			self.ingredients_coordinates.append([self.x, self.y]);
 

@@ -18,6 +18,8 @@ Properties:
 Methods:
 >>> __init__(self, Restaurant restaurant, window scr window command_scr, window keys_scr, window constant_scr) : "same as properties"
 	construtor of the client
+>>> generate_command(self)
+	generation of th command
 >>> display_command(self)
 	display the command and the connection between keys and ingredients
 >>> served(self)
@@ -39,22 +41,31 @@ class Client:
 		self.keys_scr = keys_scr;
 		self.constant_scr = constant_scr;
 		self.restaurant = restaurant;
-		self.ingredient_choice = random.sample(self.restaurant.ingredients.keys(), random.randint(1, 1)); # random list between 1 and 3 ingredients
-		self.price = sum([j*8 for i, j in self.restaurant.ingredients.items() if i in self.ingredient_choice]); # Sum of every ingredient's price to pay the price to the player
+		self.generate_command();
+		self.price = 10; # Modifier le prix et tout le système de notation
 		self.outgoings_expense = 0;
 		self.display_command();
 		self.current_pizza = Pizza.Pizza(self, self.restaurant, self.ingredient_choice, self.scr, constant_scr); # Creation of the pizza object
 		self.payement = 0;
 	
+	
+	def generate_command(self):
+		with open("../languages/french/orders.json", "r") as f:
+			orders = json.load(f);
+
+		order_choice = random.sample(orders.keys(), 1);
+
+		self.ingredient_choice = "".join(order_choice).split(", ");
+
 	#===========================================================================================
 
 	def display_command(self):
 		with open("../languages/french/orders.json", "r") as f:
-			command = json.load(f)[", ".join(sorted(self.ingredient_choice))];
+			command = json.load(f)[", ".join(self.ingredient_choice)];
 			self.command_scr.addstr(0, 0, command);
 		
 		temp = list(self.restaurant.connection_key_ingredient_display.items());
-		for i in range(len(self.restaurant.connection_key_ingredient)):
+		for i in range(len(self.restaurant.connection_key_ingredient) + 1):
 			self.keys_scr.addstr(i, 0, temp[i][0] + " : " + temp[i][1]);
 
 		self.command_scr.refresh();
