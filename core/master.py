@@ -75,6 +75,7 @@ def end_day_menu(main_scr):
 		key = main_scr.getkey();
 	
 	main_scr.clear();
+	main_scr.refresh();
 
 	return(key);
 

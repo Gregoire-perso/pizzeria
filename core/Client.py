@@ -48,6 +48,7 @@ class Client:
 		self.current_pizza = Pizza.Pizza(self, self.restaurant, self.ingredient_choice, self.scr, constant_scr); # Creation of the pizza object
 		self.payement = 0;
 	
+	#===========================================================================================
 	
 	def generate_command(self):
 		with open("../languages/french/orders.json", "r") as f:
