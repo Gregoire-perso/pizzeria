@@ -65,6 +65,8 @@ class Pizza:
 		#Put ingredients on the pizza
 		self.put_ingredients();
 
+		curses.curs_set(0);
+
 	#======================================================================
 
 	def display_pizza(self, color_pair):
