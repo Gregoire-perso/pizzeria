@@ -37,6 +37,7 @@ class Restaurant:
 
 		with open("../packages/default_cooking_time.txt", "r") as f:
 			self.cooking_time = int(f.read().replace("\n", ""));
+			self.oven_level = 1;
 
 		with open("../packages/default_connection_key_ingredient.json", "r") as f:
 			self.connection_key_ingredient = json.load(f); # {'key': 'emoji_code_of_ingredient', ...}
@@ -71,6 +72,8 @@ class Restaurant:
 	@money.setter
 	def money(self, new_money):
 		self._money = new_money;
+	
+	#===========================================================
 
 	def credit(self, how_much, constant_scr):
 		"""Check if the credit is correct
@@ -83,6 +86,8 @@ class Restaurant:
 	
 		return(False);
 
+	#===========================================================
+
 	def debit(self, how_much, constant_scr):
 		if(how_much > 0):
 			if (self.money - how_much) >= 0:
@@ -91,12 +96,16 @@ class Restaurant:
 				return(True);
 
 		return(False);
+	
+	#===========================================================
 
 	def display_const(self, constant_scr):
 		constant_scr.clear();
 		constant_scr.addstr(0, 0, "Jour numéro {0}".format(self.days));
 		constant_scr.addstr(1, 0, "{0} : {1}".format(emoji.emojize(":euro_banknote:"), self.money));
 		constant_scr.refresh();
+	
+	#===========================================================
 	
 	def do_price_list(self, ingredients_buying_price_list):
 		price_list = [];
@@ -111,6 +120,8 @@ class Restaurant:
 				temp += " " * (17 - len(temp));
 				price_list.append(temp);
 		return (price_list);
+	
+	#===========================================================
 
 	def upgrade_menu(self, main_scr, const_scr):
 		main_scr.clear();
@@ -129,6 +140,7 @@ class Restaurant:
 		else:
 			self.upgrade_equipment(main_scr, const_scr);
 
+	#===========================================================
 	
 	def upgrade_ingredient(self, main_scr, const_scr):
 		main_scr.clear();
@@ -160,7 +172,7 @@ class Restaurant:
 			main_scr.addstr(2, 2, "   " + temp.format(*emoji_list) + "   ");
 			main_scr.addstr(3, 2, "<--" + temp.format(*ingredient_name_list) + "-->");
 			main_scr.addstr(4, 2, "   " + temp.format(*price_list) + "   ");
-			main_scr.addstr(5, 2, "Appuyez sur 'q' pour quitter");
+			main_scr.addstr(5, 2, "Appuyez sur le numéro de l'ingrédient que vous voulez acheter, \nou 'q' pour quitter");
 			main_scr.refresh();
 			key = main_scr.getkey().lower();
 
@@ -180,8 +192,33 @@ class Restaurant:
 				if (self.debit(ingredients_buying_price_list[int(key)-1][1], const_scr)):
 					self.ingredients[ingredients_buying_price_list[int(key)-1][0]] = temp[ingredients_buying_price_list[int(key)-1][0]];
 					price_list = self.do_price_list(ingredients_buying_price_list);
-		
 
-	def upgrade_equipment(self, main_scr):
-		pass
+		main_scr.clear();
+		main_scr.refresh();
+	
+	#===========================================================
+
+	def upgrade_equipment(self, main_scr, const_scr):
+		main_scr.clear();
+		key = 'e';
+
+		while (key != 'q'):
+			main_scr.addstr(2, 2, "Équipement : Four");
+			main_scr.addstr(3, 2, "Niveau : " + str(self.oven_level));
+			main_scr.addstr(4, 2, "Temps de cuisson : " + str(self.cooking_time) + " secondes");
+			main_scr.addstr(5, 2, "Gain de l'amélioration : 0.2 secondes");
+			main_scr.addstr(6, 2, "Prix : 100€");
+			main_scr.addstr(7, 2, "Appuyez sur 1 pour améliorer, ou 'q' pour quitter");
+			main_scr.refresh();
+
+			key = main_scr.getkey().lower();
+			
+			if (key == '1'):
+				if (self.debit(100, const_scr)):
+					self.oven_level += 1;
+					self.cooking_time = round(self.cooking_time - 0.2, 2);
+
+		main_scr.clear();
+		main_scr.refresh();
+			
 
