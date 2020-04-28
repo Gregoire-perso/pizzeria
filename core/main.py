@@ -6,6 +6,7 @@ import master;
 import Day;
 
 def end_day():
+	main_scr.resize(20, 80);
 	choice = master.end_day_menu(main_scr);
 
 	if (choice == '1'):
@@ -13,6 +14,9 @@ def end_day():
 		end_day();
 	
 	elif (choice == '2'):
+		main_scr.clear();
+		main_scr.refresh();	
+		main_scr.resize(20, 40);
 		new_day();
 	
 	elif (choice == '3'):

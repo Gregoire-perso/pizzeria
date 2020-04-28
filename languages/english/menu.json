@@ -1,0 +1,5 @@
+{
+	"name?": "Quel est votre nom ? ", 
+	"surname?": "Quel est votre prénom ? ", 
+	"gameAlreadyExist": "Cette partie existe déjà..."
+}
