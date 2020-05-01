@@ -55,8 +55,16 @@ class Client:
 			orders = json.load(f);
 
 		order_choice = random.sample(orders.keys(), 1);
+		
+		ingredient_unavaible = False;
+		for i in order_choice:
+			if (i not in self.restaurant.ingredients):
+				ingredient_unavaible = True;
 
-		self.ingredient_choice = "".join(order_choice).split(", ");
+		if (ingredient_unavaible):
+			self.generate_command();
+		else:
+			self.ingredient_choice = "".join(order_choice).split(", ");
 
 	#===========================================================================================
 
