@@ -9,9 +9,9 @@
 	"cheese_wedge, muchroom": "Je n'ai pas la tomate. Par contre j'adore les champignons et le beaufort !",
 	"cheese_wedge, leafy_green": "Juste de la salade et du fromage pour moi chef !",
 	"muchroom, leafy_green": "J'adore tout ce qui est vert !",
-	"tomato, cheese_wedge, muchroom": "J'voudrais bien des cornichons sur ma pizza", 
+	"tomato, cheese_wedge, muchroom": "J'voudrais bien des champignons sur ma pizza", 
 	"tomato, cheese_wedge, leafy_green": "Mon jardin est rempli de salade, mais pas que !", 
 	"tomato, muchroom, leafy_green": "Le fromage est présent dans mes pires cauchemards ! Mais il n'y a que le fromage dans mes cauchemards, vous pouvez mettre le reste.",
-	"cheese_wedge, muchroom, leafy_green": "fromage, cornichons, laitue.",
+	"cheese_wedge, muchroom, leafy_green": "Fromage, champignons, laitue.",
 	"tomato, cheese_wedge, muchroom, leafy_green": "La complète pour moi s'il te plait !"
 }
