@@ -157,9 +157,9 @@ class Pizza:
 				if(not self.overdraft(self.restaurant.connection_key_ingredient['t'])):
 					self.display_pizza(1);
 					try:
-						self.ingredients_on_pizza["tomato"] += 1;
+						self.ingredients_on_pizza["tomato"] += 8;
 					except KeyError:
-						self.ingredients_on_pizza["tomato"] = 1;
+						self.ingredients_on_pizza["tomato"] = 8;
 
 			#Put an ingredient
 			elif(key in self.restaurant.connection_key_ingredient.keys()):
