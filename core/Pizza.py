@@ -189,7 +189,7 @@ class Pizza:
 	def cook(self):
 		time.sleep(self.restaurant.cooking_time);
 		self.cooked = True;
-		self.display_pizza_edge(1);
+		self.display_pizza_edge(3);
 		try:
 			if (self.ingredients_on_pizza["tomato"] >= 1):
 				self.display_pizza(1);

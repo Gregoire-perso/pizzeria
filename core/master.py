@@ -31,7 +31,7 @@ import Restaurant;
 def init(main_screen):
 	"""Main function"""
 	# Colors init #
-	curses.init_color(8, 800, 600, 0);
+	curses.init_color(8, 700, 500, 0);
 	curses.init_color(9, 999, 800, 0);
 	curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK);
 	curses.init_pair(3, 8, curses.COLOR_BLACK);
