@@ -22,7 +22,6 @@ class Day:
 	def start_day(self):
 		for i in range(self.number_of_client):
 			current_client = Client.Client(self.restaurant, self.main_scr, self.command_scr, self.keys_scr, self.const_scr);
-			current_client.current_pizza.do_pizza();
 			self.income_of_the_day += current_client.payement;
 			self.outgoings_expense_of_the_day += current_client.outgoings_expense;
 			self.main_scr.clear();

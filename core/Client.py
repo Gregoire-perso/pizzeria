@@ -29,6 +29,7 @@ Methods:
 import random;
 import time;
 import json;
+import math;
 
 # Local import
 import Pizza;
@@ -45,7 +46,8 @@ class Client:
 		self.outgoings_expense = 0;
 		self.display_command();
 		self.current_pizza = Pizza.Pizza(self, self.restaurant, self.ingredient_choice, self.scr, constant_scr); # Creation of the pizza object
-		self.payement = 0;
+		self.start_time = time.time();
+		self.current_pizza.do_pizza();
 	
 	#===========================================================================================
 	
@@ -82,6 +84,7 @@ class Client:
 	#===========================================================================================
 
 	def served(self):
+		self.waiting_time = math.ceil(self.start_time - time.time());
 		ingredients_wanted_on_pizza = self.current_pizza.ingredients_on_pizza;
 		unwanted_ingredients = 0;
 		
@@ -100,8 +103,30 @@ class Client:
 		ingredients_success_rate = sum(ingredients_wanted_on_pizza.values()) / (len(self.ingredient_choice) * 8) * 100;
 		ingredients_success_rate -= unwanted_ingredients * 2;
 
+		# Calculation of cooking rate
+		cooking_rate = 1 if self.current_pizza.cooked else 0.90
+
+		# Calculation of waiting rate
+		if (self.waiting_time <= 10):
+			waiting_rate = 1.10;
+
+		elif (self.waiting_time <= 15):
+			waiting_rate = 1;
+		
+		elif (self.waiting_time <= 20):
+			waiting_rate = 0.90;
+		
+		elif (self.waiting_time <= 25):
+			waiting_rate = 0.80;
+		
+		elif (self.waiting_time <= 30):
+			waiting_rate = 0.70;
+		
+		else:
+			waiting_rate = 0.60;
+
 		# Calculation of the global rate
-		global_success_rate = ingredients_success_rate if self.current_pizza.cooked else ingredients_success_rate * 0.90;
+		global_success_rate = ingredients_success_rate * cooking_rate * waiting_rate;
 
 		with open("../packages/all_ingredients.json", "r") as f:
 			prices = json.load(f);
