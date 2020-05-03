@@ -42,7 +42,6 @@ class Client:
 		self.constant_scr = constant_scr;
 		self.restaurant = restaurant;
 		self.generate_command();
-		self.price = 10; # Modifier le prix et tout le système de notation
 		self.outgoings_expense = 0;
 		self.display_command();
 		self.current_pizza = Pizza.Pizza(self, self.restaurant, self.ingredient_choice, self.scr, constant_scr); # Creation of the pizza object
@@ -83,6 +82,7 @@ class Client:
 	#===========================================================================================
 
 	def served(self):
+		self.price = 10
 		unwanted_ingredients = 0;
 		ingredient_success_rate = {} # Rating of the ingredient following the readme.md rules
 		for elt, number in self.current_pizza.ingredients_on_pizza.items():

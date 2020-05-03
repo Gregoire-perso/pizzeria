@@ -57,6 +57,7 @@ class Pizza:
 	#======================================================================
 	
 	def do_pizza(self):
+		self.scr.clear();
 		#Display of the pizza
 		self.display_pizza_edge(4);
 
@@ -71,35 +72,79 @@ class Pizza:
 
 	def display_pizza(self, color_pair):
 		self.scr.addstr(3,  14, ", - ~~ - ,", curses.color_pair(color_pair));
-		self.scr.addstr(4,  10, ", '            ' ,", curses.color_pair(color_pair));
-		self.scr.addstr(5,  8, ",                    ,", curses.color_pair(color_pair));
-		self.scr.addstr(6,  7, ",                      ,", curses.color_pair(color_pair));
-		self.scr.addstr(7,  6, ",                        ,", curses.color_pair(color_pair));
-		self.scr.addstr(8,  6, ",                        ,", curses.color_pair(color_pair));
-		self.scr.addstr(9,  6, ",                        ,", curses.color_pair(color_pair));
-		self.scr.addstr(10, 7, ",                      ,", curses.color_pair(color_pair));
-		self.scr.addstr(11, 8, ",                    ,", curses.color_pair(color_pair));
-		self.scr.addstr(12, 10, ",                ,", curses.color_pair(color_pair));
+		
+		self.scr.addstr(4,  10, ", '", curses.color_pair(color_pair));
+		self.scr.addstr(4,  25, "' ,", curses.color_pair(color_pair));
+
+		self.scr.addstr(5,  8,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(5,  29, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(6,  7,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(6,  30, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(7,  6,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(7,  31, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(8,  6,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(8,  31, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(9,  6,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(9,  31, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(10, 7,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(10, 30, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(11, 8,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(11, 29, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(12, 10, ",", curses.color_pair(color_pair));
+		self.scr.addstr(12, 28, ",", curses.color_pair(color_pair));
+		
 		self.scr.addstr(13, 12, "' - , __ , - '", curses.color_pair(color_pair));
+		
 		self.scr.move(8, 18);
 		self.scr.refresh();
 
 	#======================================================================
 
 	def display_pizza_edge(self, color_pair):
-		self.scr.addstr(2,  5, "        , -  ~~  - ,        ", curses.color_pair(color_pair));
-		self.scr.addstr(3,  5, "    , '              ' ,    ", curses.color_pair(color_pair));
-		self.scr.addstr(4,  5, "  ,                      ,  ", curses.color_pair(color_pair));
-		self.scr.addstr(5,  5, " ,                        , ", curses.color_pair(color_pair));
-		self.scr.addstr(6,  5, ",                          ,", curses.color_pair(color_pair));
-		self.scr.addstr(7,  5, ",                          ,", curses.color_pair(color_pair));
-		self.scr.addstr(8,  5, ",                          ,", curses.color_pair(color_pair));
-		self.scr.addstr(9,  5, ",                          ,", curses.color_pair(color_pair));
-		self.scr.addstr(10, 5, ",                          ,", curses.color_pair(color_pair));
-		self.scr.addstr(11, 5, " ,                        , ", curses.color_pair(color_pair));
-		self.scr.addstr(12, 5, "  ,                      ,  ", curses.color_pair(color_pair));
-		self.scr.addstr(13, 5, "    ,                  ,    ", curses.color_pair(color_pair));
-		self.scr.addstr(14, 5, "      ' - ,  __  , - '      ", curses.color_pair(color_pair));
+		self.scr.addstr(2, 13,  ", -  ~~  - ,", curses.color_pair(color_pair));
+		
+		self.scr.addstr(3, 9,  ", '", curses.color_pair(color_pair));
+		self.scr.addstr(3, 26,  "' ,", curses.color_pair(color_pair));
+		
+		self.scr.addstr(4,  7,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(4, 30,  ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(5,  6,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(5, 31,  ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(6,  5,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(6, 32,  ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(7,  5,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(7, 32,  ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(8,  5,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(8, 32,  ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(9,  5,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(9, 32,  ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(10, 5,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(10, 32, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(11, 6,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(11, 31, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(12, 7,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(12, 30, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(13, 9,  ",", curses.color_pair(color_pair));
+		self.scr.addstr(13, 28, ",", curses.color_pair(color_pair));
+		
+		self.scr.addstr(14, 11, "' - ,  __  , - '", curses.color_pair(color_pair));
+		
 		self.scr.move(8, 18);
 		self.scr.refresh();
 
