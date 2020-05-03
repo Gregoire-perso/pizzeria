@@ -82,31 +82,33 @@ class Client:
 	#===========================================================================================
 
 	def served(self):
-		self.price = 10
+		ingredients_wanted_on_pizza = self.current_pizza.ingredients_on_pizza;
 		unwanted_ingredients = 0;
-		ingredient_success_rate = {} # Rating of the ingredient following the readme.md rules
+		
+		# Calculation of unwanted ingredients
 		for elt, number in self.current_pizza.ingredients_on_pizza.items():
-			if(not elt in self.ingredient_choice): # Check if there is a none wanted ingredient on the pizza
+			if(not elt in self.ingredient_choice):
 				unwanted_ingredients += number;
+				del ingredients_wanted_on_pizza[elt];
 
-			else: # Check conditions of a good pizza on wanted ingredients
-				ingredient_success_rate[elt] = number / 8 if number < 8 else 1;
+		# If there are more than 8 ingredients of the same type, the other ingredients of that type are not taking into consideration
+		for elt, number in ingredients_wanted_on_pizza.items():
+			if (number > 8):
+				ingredients_wanted_on_pizza[elt] = 8;
 
-		try:	
-			global_ingredient_success_rate = sum(ingredient_success_rate.values()) / len(ingredient_success_rate); # Ingredients success_rate without unwanted ingredients
-		except ZeroDivisionError:
-			global_ingredient_success_rate = 0; # If there is no ingredients which are wanted
+		# Calculation of the ingredients rate
+		ingredients_success_rate = sum(ingredients_wanted_on_pizza.values()) / (len(self.ingredient_choice) * 8) * 100;
+		ingredients_success_rate -= unwanted_ingredients * 2;
 
-		global_ingredient_success_rate *= 1 - (unwanted_ingredients / 100); # Rating with unwanted ingredients
-	
-		if(self.current_pizza.cooked):
-			global_pizza_success_rate = global_ingredient_success_rate * 100;
+		# Calculation of the global rate
+		global_success_rate = ingredients_success_rate if self.current_pizza.cooked else ingredients_success_rate * 0.90;
 
-		else:
-			global_pizza_success_rate = global_ingredient_success_rate * 0.75 * 100;
-
-		self.restaurant.credit(self.price * (1 + 0.01 * global_pizza_success_rate), self.constant_scr);
-		self.payement += self.price * (1 + 0.01 * global_pizza_success_rate);
+		with open("../packages/all_ingredients.json", "r") as f:
+			prices = json.load(f);
+			self.minimum_price = sum([prices[i] * ingredients_wanted_on_pizza[i] for i in ingredients_wanted_on_pizza.keys()]) + 2;
+		
+		self.payement += round(self.minimum_price * (1 * (global_success_rate/100)), 2);
+		self.restaurant.credit(self.payement, self.constant_scr);
 		self.outgoings_expense += self.current_pizza.outgoings_expense;
 		self.restaurant.xp += self.payement;
 

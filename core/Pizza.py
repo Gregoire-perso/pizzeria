@@ -58,13 +58,15 @@ class Pizza:
 	
 	def do_pizza(self):
 		self.scr.clear();
-		#Display of the pizza
-		self.display_pizza_edge(4);
+		#Debit base price
+		if (not self.overdraft(2)):
+			#Display of the pizza
+			self.display_pizza_edge(4);
 
-		curses.curs_set(2); # Show the cursor
+			curses.curs_set(2); # Show the cursor
 
-		#Put ingredients on the pizza
-		self.put_ingredients();
+			#Put ingredients on the pizza
+			self.put_ingredients();
 
 		curses.curs_set(0);
 
@@ -167,9 +169,9 @@ class Pizza:
 	
 	#======================================================================
 
-	def overdraft(self, ingredient):
-		if(self.restaurant.debit(self.restaurant.ingredients[ingredient], self.constant_scr)):
-			self.outgoings_expense += self.restaurant.ingredients[ingredient];
+	def overdraft(self, price):
+		if(self.restaurant.debit(price, self.constant_scr)):
+			self.outgoings_expense += price;
 			return(False);
 
 		else:
@@ -199,7 +201,7 @@ class Pizza:
 				self.cook();
 
 			elif(key == 't'):
-				if(not self.overdraft(self.restaurant.connection_key_ingredient['t'])):
+				if(not self.overdraft(self.restaurant.ingredients["tomato"] * 8)):
 					self.display_pizza(1);
 					try:
 						self.ingredients_on_pizza["tomato"] += 8;
@@ -218,7 +220,7 @@ class Pizza:
 	#======================================================================
 
 	def add_ingredient(self, which_one):
-		if(self.correct_position() and not self.overdraft(which_one)):		
+		if(self.correct_position() and not self.overdraft(self.restaurant.ingredients[which_one])):		
 			self.scr.addstr(self.y, self.x, emoji.emojize(":"+which_one+":"));
 			self.ingredients_coordinates.append([self.x, self.y]);
 
