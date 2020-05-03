@@ -49,7 +49,7 @@ class Restaurant:
 		self.surname = surname;
 		self._xp = 1;
 		self._level = 1;
-		self._money = 500;
+		self._money = 50;
 		self.days = 1;
 		self.rent = 10;
 
