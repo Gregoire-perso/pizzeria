@@ -1,20 +1,18 @@
 ## Etapes en cours ##
 
-[En cours] Voir c'est quoi le bordel avec le payement de la pizza
-[En cours] Faire des couleurs mieux pour voir que la pizza est cuite
-[En cours] Mettre a jour la notation pour les tomates
-[En cours] Faire en sorte que la sauce tomate soit debitee
 
 ## Etapes futures ##
-
-[A faire] Faire un système pour sauvegarder
-[A faire] Faire un menu de fin
-[A faire] Système d'amélioration
-
 
 
 ## Etapes finies ##
 
+[Fini] Faire un système pour sauvegarder
+[Fini] Faire un menu de fin
+[Fini] Système d'amélioration
+[Fini] Voir c'est quoi le bordel avec le payement de la pizza
+[Fini] Faire des couleurs mieux pour voir que la pizza est cuite
+[Fini] Mettre a jour la notation pour les tomates
+[Fini] Faire en sorte que la sauce tomate soit debitee
 [Fini] Ajouter une touche pour faire cuire la pizza et une touche pour servir la pizza
 [Fini] Ajouter un ecran permettant d'afficher quelques parametres (numero de jour, budget restant...)
 [Fini] Faire des pourboires
@@ -27,13 +25,6 @@
 [Fini] Placement impossible des ingredients en dehors de la pizza
 [Fini] Dessin de la pizza
 [Fini] Base des diverses classes
-
-
-
-## Idee d'equilibrage ##
-
-[Equilibrage] Pour éviter la triche, diminuer l'importance de la cuisson
-[Equilibrage] Ne pas faire le payement de la pizza qu'après la livraison pour éviter la triche
 
 
 

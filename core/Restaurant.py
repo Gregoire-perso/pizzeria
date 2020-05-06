@@ -48,7 +48,7 @@ class Restaurant:
 		self.name = name;
 		self.surname = surname;
 		self._xp = 1;
-		self._level = 1;
+		self.level = 1;
 		self._money = 50;
 		self.days = 1;
 		self.rent = 10;
@@ -61,8 +61,9 @@ class Restaurant:
 	@xp.setter
 	def xp(self, new_xp):
 		self._xp = new_xp;
+		self._xp = round(self._xp, 0);
 		
-		if self._xp - 75*2**(self._level+1) > 0:
+		if self._xp - 75*2**(self.level+1) > 0:
 			self._level += 1;
 
 	@property
@@ -97,6 +98,15 @@ class Restaurant:
 
 		return(False);
 	
+	#===========================================================
+
+	def display_const(self, const_scr):
+		self.display_budget(const_scr);
+		const_scr.addstr(1, 18, "Niveau {0}".format(self.level));
+		const_scr.addstr(2, 18, "{0} xp manquant pour".format(str(75*2**(self.level+1) - self.xp)));
+		const_scr.addstr(3, 18, "passer au niveau supérieur");
+		const_scr.refresh();
+
 	#===========================================================
 
 	def display_budget(self, const_scr):

@@ -46,7 +46,9 @@ class Client:
 		self.outgoings_expense = 0;
 		self.display_command();
 		self.restaurant.display_budget(self.constant_scr);
+		self.restaurant.display_const(self.constant_scr);
 		self.current_pizza = Pizza.Pizza(self, self.restaurant, self.ingredient_choice, self.scr, constant_scr); # Creation of the pizza object
+		self.time_start = time.time();
 		self.current_pizza.do_pizza();
 	
 	#===========================================================================================
@@ -86,9 +88,7 @@ class Client:
 	#===========================================================================================
 
 	def served(self):
-		self.wait.stop_thread();
-		waiting_time = self.wait.waiting_rate;
-		self.wait.join();
+		waiting_time = self.time_start - time.time();
 		ingredients_wanted_on_pizza = self.current_pizza.ingredients_on_pizza;
 		unwanted_ingredients = 0;
 		
@@ -112,19 +112,19 @@ class Client:
 		cooking_rate = 1 if self.current_pizza.cooked else 0.90
 
 		# Calculation of waiting rate
-		if (waiting_time >= 90):
+		if (waiting_time >= 10):
 			waiting_rate = 1.10;
 
-		elif (waiting_time >= 80):
+		elif (waiting_time >= 25):
 			waiting_rate = 1;
 		
-		elif (waiting_time >= 70):
+		elif (waiting_time >= 40):
 			waiting_rate = 0.90;
 		
-		elif (waiting_time >= 60):
+		elif (waiting_time >= 55):
 			waiting_rate = 0.80;
 		
-		elif (waiting_time >= 50):
+		elif (waiting_time >= 60):
 			waiting_rate = 0.70;
 		
 		else:
@@ -141,4 +141,5 @@ class Client:
 		self.restaurant.credit(self.payement, self.constant_scr);
 		self.outgoings_expense += self.current_pizza.outgoings_expense;
 		self.restaurant.xp += self.payement;
+		self.restaurant.display_const(self.constant_scr);
 

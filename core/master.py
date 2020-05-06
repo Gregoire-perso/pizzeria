@@ -37,10 +37,10 @@ def init(main_screen):
 	curses.init_pair(3, 8, curses.COLOR_BLACK);
 	curses.init_pair(4, 9, curses.COLOR_BLACK);
 	curses.curs_set(0);
-	main_scr = curses.newwin(20, 80, 8, 0); # The main self.main_screen
-	command_scr = curses.newwin(3, 60, 4, 0); # The command self.main_screen
-	keys_scr = curses.newwin(20, 40, 8, 40); # self.main_screen that display connection between key and ingredient
-	constant_scr = curses.newwin(3, 60, 0, 0); # self.main_screen that display money, day, etc...
+	main_scr = curses.newwin(20, 40, 9, 0); # The main self.main_screen
+	command_scr = curses.newwin(3, 60, 5, 0); # The command self.main_screen
+	keys_scr = curses.newwin(20, 40, 9, 40); # self.main_screen that display connection between key and ingredient
+	constant_scr = curses.newwin(4, 60, 0, 0); # self.main_screen that display money, day, etc...
 	main_scr.keypad(True);
 
 	return(main_scr, command_scr, keys_scr, constant_scr);
