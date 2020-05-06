@@ -45,7 +45,6 @@ class Pizza:
 		self.scr = scr;
 		self.constant_scr = constant_scr;
 		self.restaurant = restaurant;
-		self.restaurant.display_const(self.constant_scr);
 		self.ingredient_wanted = ingredient_wanted;
 		self.ingredients_on_pizza = {}; # dict : {ingredient_name: number}
 		self.ingredients_coordinates = []; # list of coordinates of every : [[x, y], ...]
@@ -62,13 +61,9 @@ class Pizza:
 		if (not self.overdraft(2)):
 			#Display of the pizza
 			self.display_pizza_edge(4);
-
-			curses.curs_set(2); # Show the cursor
-
+			curses.curs_set(2);
 			#Put ingredients on the pizza
 			self.put_ingredients();
-
-		curses.curs_set(0);
 
 	#======================================================================
 
@@ -104,7 +99,6 @@ class Pizza:
 		
 		self.scr.addstr(13, 12, "' - , __ , - '", curses.color_pair(color_pair));
 		
-		self.scr.move(8, 18);
 		self.scr.refresh();
 
 	#======================================================================
@@ -147,7 +141,7 @@ class Pizza:
 		
 		self.scr.addstr(14, 11, "' - ,  __  , - '", curses.color_pair(color_pair));
 		
-		self.scr.move(8, 18);
+		self.scr.move(self.y, self.x);
 		self.scr.refresh();
 
 	#======================================================================
@@ -185,15 +179,19 @@ class Pizza:
 		while(key.lower() != 'q'):
 			#Movements
 			if(key == 'key_right'):
+				self.old_x = self.x;
 				self.x += 2 if self.x <= 37 else 0;
 
 			elif(key == 'key_left'):
+				self.old_x = self.x;
 				self.x -= 2 if self.x >= 1 else 0;
 
 			elif(key == 'key_up'):
+				self.old_y = self.y;
 				self.y -= 1 if self.y >= 1 else 0;
 
 			elif(key == 'key_down'): 
+				self.old_y = self.y;
 				self.y += 1 if self.y <= 18 else 0; 
 
 			# Check if player want to cook the pizza
@@ -212,6 +210,7 @@ class Pizza:
 			elif(key in self.restaurant.connection_key_ingredient.keys()):
 				self.add_ingredient(self.restaurant.connection_key_ingredient[key]);
 
+			
 			self.scr.move(self.y, self.x);
 			key = self.scr.getkey().lower();
 	

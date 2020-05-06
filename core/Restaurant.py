@@ -22,8 +22,8 @@ Methods:
 	 credit "how much" to the money of the player
 >>> debit(self, float how_much, curses_screen constant_scr) --> "same as previous line"
 	 debit "how_much" of to money of the player
->>> display_const(self, curses_screen constant_scr) --> "constant_scr --> screen of money, days, level, ..."
-	 display constant game like level, days, money left		
+>>> display_budget(self, curses_screen constant_scr) --> "constant_scr --> screen of money, days, level, ..."
+	 display player budget		
 """
 # Global import
 import json;
@@ -81,7 +81,7 @@ class Restaurant:
 		if(how_much > 0):
 			if self.money + how_much >= 0:
 				self.money += how_much;
-				self.display_const(constant_scr);
+				self.display_budget(constant_scr);
 				return(True);
 	
 		return(False);
@@ -92,19 +92,18 @@ class Restaurant:
 		if(how_much > 0):
 			if (self.money - how_much) >= 0:
 				self.money -= how_much;
-				self.display_const(constant_scr);
+				self.display_budget(constant_scr);
 				return(True);
 
 		return(False);
 	
 	#===========================================================
 
-	def display_const(self, constant_scr):
-		constant_scr.clear();
-		constant_scr.addstr(0, 0, "Jour numéro {0}".format(self.days));
-		constant_scr.addstr(1, 0, "{0} : {1}".format(emoji.emojize(":euro_banknote:"), self.money));
-		constant_scr.refresh();
-	
+	def display_budget(self, const_scr):
+		const_scr.addstr(1, 1, "Jour numéro {0}".format(self.days));
+		const_scr.addstr(2, 1, "{0} : {1}".format(emoji.emojize(":euro_banknote:"), self.money));
+		const_scr.refresh();
+
 	#===========================================================
 	
 	def do_price_list(self, ingredients_buying_price_list):

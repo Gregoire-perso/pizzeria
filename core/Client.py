@@ -45,8 +45,8 @@ class Client:
 		self.generate_command();
 		self.outgoings_expense = 0;
 		self.display_command();
+		self.restaurant.display_budget(self.constant_scr);
 		self.current_pizza = Pizza.Pizza(self, self.restaurant, self.ingredient_choice, self.scr, constant_scr); # Creation of the pizza object
-		self.start_time = time.time();
 		self.current_pizza.do_pizza();
 	
 	#===========================================================================================
@@ -70,6 +70,8 @@ class Client:
 	#===========================================================================================
 
 	def display_command(self):
+		self.command_scr.clear();
+		self.keys_scr.clear();
 		with open("../languages/french/orders.json", "r") as f:
 			command = json.load(f)[", ".join(self.ingredient_choice)];
 			self.command_scr.addstr(0, 0, command);
@@ -84,7 +86,9 @@ class Client:
 	#===========================================================================================
 
 	def served(self):
-		self.waiting_time = math.ceil(self.start_time - time.time());
+		self.wait.stop_thread();
+		waiting_time = self.wait.waiting_rate;
+		self.wait.join();
 		ingredients_wanted_on_pizza = self.current_pizza.ingredients_on_pizza;
 		unwanted_ingredients = 0;
 		
@@ -95,7 +99,8 @@ class Client:
 				del ingredients_wanted_on_pizza[elt];
 
 		# If there are more than 8 ingredients of the same type, the other ingredients of that type are not taking into consideration
-		for elt, number in ingredients_wanted_on_pizza.items():
+		temp = ingredients_wanted_on_pizza;
+		for elt, number in temp.items():
 			if (number > 8):
 				ingredients_wanted_on_pizza[elt] = 8;
 
@@ -107,23 +112,23 @@ class Client:
 		cooking_rate = 1 if self.current_pizza.cooked else 0.90
 
 		# Calculation of waiting rate
-		if (self.waiting_time <= 10):
+		if (waiting_time >= 90):
 			waiting_rate = 1.10;
 
-		elif (self.waiting_time <= 15):
+		elif (waiting_time >= 80):
 			waiting_rate = 1;
 		
-		elif (self.waiting_time <= 20):
+		elif (waiting_time >= 70):
 			waiting_rate = 0.90;
 		
-		elif (self.waiting_time <= 25):
+		elif (waiting_time >= 60):
 			waiting_rate = 0.80;
 		
-		elif (self.waiting_time <= 30):
+		elif (waiting_time >= 50):
 			waiting_rate = 0.70;
 		
 		else:
-			waiting_rate = 0.60;
+			waiting_rate = 0.50;
 
 		# Calculation of the global rate
 		global_success_rate = ingredients_success_rate * cooking_rate * waiting_rate;
@@ -132,7 +137,7 @@ class Client:
 			prices = json.load(f);
 			self.minimum_price = sum([prices[i] * ingredients_wanted_on_pizza[i] for i in ingredients_wanted_on_pizza.keys()]) + 2;
 		
-		self.payement += round(self.minimum_price * (1 * (global_success_rate/100)), 2);
+		self.payement = round(self.minimum_price * (1 * (global_success_rate/100)), 2);
 		self.restaurant.credit(self.payement, self.constant_scr);
 		self.outgoings_expense += self.current_pizza.outgoings_expense;
 		self.restaurant.xp += self.payement;
